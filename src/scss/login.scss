@@ -1,0 +1,228 @@
+$light: #f0dedf;
+$dark: #7d938a;
+$black: #3a3a3a;
+$grey: #808080;
+
+%button {
+  font-size: 15px;
+}
+
+.wrapper {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-around;
+  background: $grey;
+}
+
+.parent {
+  display: flex;
+  position: relative;
+  height: 500px;
+  width: 780px;
+  margin: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  font-family: "Roboto Thin", sans-serif;
+  border-radius: 10px;
+  background: white;
+
+
+  .hover {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    clip-path: inset(0 50% -1px 0 round 10px);
+    background: rgb(125,147,138);
+    transition: clip-path 1s, background-color 1s;
+
+    &.active {
+      clip-path: inset(0 0 0 50% round 10px);
+      background: #f0dedf;
+    }
+
+    .message {
+      width: 40%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: justify;
+
+      &:has(button:not(.light)) {
+          color: white;
+      }
+
+      button {
+        @extend %button;
+
+        margin: 16px;
+        color: white;
+        background-color: $dark;
+        border-radius: 5px;
+        padding: 10px 20px;
+        border: 1px solid;
+
+        &.light {
+          color: $black;
+          background-color: $light;
+        }
+      }
+
+      .title {
+        font-size: 20px;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .form {
+    padding: 20px;
+    width: 100%;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      p {
+        margin: 0;
+        color: #3a3a3a;
+        font-size: 15px;
+      }
+
+      label {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      input[type="text"],
+      input[type="email"],
+      input[type="password"] {
+        padding: 8px;
+        width: 100%;
+        border: 1px solid #9b9b9b;
+        border-radius: 5px;
+        color: #000000;
+      }
+
+      button {
+        @extend %button;
+        margin-top: 13px;
+        position: relative;
+        background-color: #7d938a;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.2s ease-in-out;
+
+
+        &.light {
+          background-color: #f0dedf;
+          color: #3a3a3a;
+        }
+
+        &:hover::before {
+          content: '';
+          position: absolute;
+          border-radius: 5px;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-color: rgba(0, 0, 0, 0.2); /* Semi-transparent black */
+          mix-blend-mode: multiply;
+        }
+      }
+
+      .grey-p{
+        color: #9b9b9be6;
+        font-size: 12px;
+      }
+
+      .alternative {
+        align-self: center;
+        margin-top: 12px;
+      }
+
+      .logo {
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        background-image: url(/google-light.png);
+        background-size: 20px 20px;
+        margin-right: 10px;
+        align-self: center;
+
+        &.dark {
+          background-image: url(/google-dark.png);
+        }
+      }
+
+      .header {
+        margin-bottom: 25px;
+        margin-top: 25px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+
+        .title {
+          font-size: 24px;
+          font-weight: bold;
+          color: #3c3c3c;
+          margin-bottom: 20px;
+        }
+
+        .app-logo {
+          width: 100px;
+          height: 60px;
+          background-image: url(/logo.png);
+          background-size: 160px 130px;
+          background-position: center;
+        }
+
+        .intro {
+          color: #3a3a3a;
+          font-size: 18px;
+          font-weight: bold;
+        }
+      }
+
+      .input-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        label {
+          font-size: 20px;
+          font-weight: 600;
+          color: #3a3a3a;
+        }
+
+        input {
+          padding: 12px;
+          font-size: 18px;
+          border: none;
+          border-radius: 4px;
+          background-color: #eaeaea;
+          color: #3a3a3a;
+
+          &:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px #7d938a;
+          }
+        }
+      }
+    }
+  }
+}
