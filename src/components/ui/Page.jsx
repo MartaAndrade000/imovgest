@@ -12,7 +12,7 @@ const Page = ({children, selected}) => {
                 <div style={{display: "flex"}}>
                     <Topbar/>
                 </div>
-                <div style={{display: "flex", flexGrow: 1}}>
+                <div style={{display: "flex", flexGrow: 1, overflow: "hidden"}}>
                     {children}
                 </div>
             </div>

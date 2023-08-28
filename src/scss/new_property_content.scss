@@ -220,14 +220,15 @@ $light-green: #d2e7d6;
           display: flex;
           align-items: center; /* Align input and label vertically */
 
-          input[type="checkbox"]:checked {
-            accent-color: $dark;
-          }
+          input[type="checkbox"] {
 
-          input {
             height: 18px;
             width: 18px;
             margin-right: 5px;
+
+            &:checked {
+              accent-color: $dark;
+            }
           }
         }
 

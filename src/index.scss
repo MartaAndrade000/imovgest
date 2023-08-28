@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
 
+@import "scss/variables";
+
 * {
     box-sizing: border-box;
 }
@@ -18,6 +20,17 @@ button, input[type="submit"], input[type="reset"] {
     font: inherit;
     cursor: pointer;
     outline: inherit;
+}
+
+input[type="checkbox"] {
+
+    height: 18px;
+    width: 18px;
+    margin-right: 5px;
+
+    &:checked {
+        accent-color: $dark;
+    }
 }
 
 /*:root {*/

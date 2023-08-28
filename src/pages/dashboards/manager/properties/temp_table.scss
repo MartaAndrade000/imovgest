@@ -1,0 +1,81 @@
+@import "../../../../scss/variables";
+
+.main-content {
+
+  overflow: hidden;
+
+  .stats {
+    background: $light-green;
+  }
+
+  .table-comp-wrapper {
+    display: flex;
+    gap: 30px;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 15px 25px 15px 15px;
+
+    flex-grow: 1;
+
+    .action-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      height: 140px;
+    }
+
+    .filter-wrapper {
+      display: flex;
+      gap: 10px;
+
+      .pill {
+        border-radius: 5px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        padding: 5px;
+        gap: 4px;
+
+        &::after {
+          content: "";
+
+          display: block;
+          width: 20px;
+          height: 20px;
+
+          background: url("/src/assets/icons/icon_remove.svg");
+          background-size: contain;
+        }
+      }
+    }
+
+
+    .table-wrapper {
+      overflow-y: auto;
+
+
+      table {
+        width: 100%;
+        height: 100%;
+        border-collapse: collapse;
+        position: relative;
+
+        th, td {
+          height: 40px;
+        }
+
+        th {
+          text-align: left;
+          position: sticky;
+          top: 0;
+          background: white;
+        }
+
+        td {
+          border-bottom: 1px solid #e6e6e6;
+        }
+      }
+    }
+  }
+}
