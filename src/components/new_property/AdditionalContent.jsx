@@ -219,6 +219,7 @@ const AdditionalContent = () => {
                                 </div>
                                 <div className={"form-input"}>
                                     <div className={"check-box-container"}>
+                                        <div className={"column"}>
                                         <div className={"check-box"}>
                                             <input type={"checkbox"}/>
                                             <label> Acesso WiFi</label>
@@ -247,6 +248,8 @@ const AdditionalContent = () => {
                                             <input type={"checkbox"}/>
                                             <label>Elevador</label>
                                         </div>
+                                        </div>
+                                        <div className={"column"}>
                                         <div className={"check-box"}>
                                             <input type={"checkbox"}/>
                                             <label> Arrecadação</label>
@@ -274,6 +277,7 @@ const AdditionalContent = () => {
                                         <div className={"check-box"}>
                                             <input type={"checkbox"}/>
                                             <label>Churrasqueira</label>
+                                        </div>
                                         </div>
                                     </div>
                                 </div>

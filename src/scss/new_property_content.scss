@@ -74,6 +74,7 @@ $light-green: #d2e7d6;
         flex-direction: column;
         flex-grow:1;
         width: 100%;
+        align-items: flex-start;
 
         select {
           width: 100%;
@@ -201,25 +202,47 @@ $light-green: #d2e7d6;
         }
 
         .check-box-container {
-          width: 1000px;
           display: flex;
           flex-direction: row;
           flex-wrap: wrap;
+          width: 50%;
+          justify-content: space-between;
 
-          .check-box {
-            width: 50%;
-            margin-bottom: 10px;
+          .column {
+
             display: flex;
-            align-items: center; /* Align input and label vertically */
+            flex-direction: column;
+          }
+        }
 
-            input[type="checkbox"]:checked {
+        .check-box {
+          padding: 5px;
+          display: flex;
+          align-items: center; /* Align input and label vertically */
+
+          input[type="checkbox"]:checked {
+            accent-color: $dark;
+          }
+
+          input {
+            height: 18px;
+            width: 18px;
+            margin-right: 5px;
+          }
+        }
+
+        .radio-label {
+          display: flex;
+          align-items: center;
+          margin-right: 20px;
+
+          input[type="radio"] {
+            margin-right: 5px;
+            width: 15px;
+
+            &:checked {
+              background-color: $dark;
               accent-color: $dark;
-            }
-
-            input {
-              height: 18px;
-              width: 18px;
-              margin-right: 5px; /* Add spacing between input and label */
             }
           }
         }
