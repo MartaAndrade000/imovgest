@@ -10,6 +10,7 @@ import {useState} from "react";
 import Icon from "../../../../components/ui/Icon.jsx";
 
 const Layout = ({stats: Stats, content: Content, ...rest}) => {
+
     return (
         <>
             <div className={"main-container"}>
@@ -68,18 +69,22 @@ const filterToPill = (input) => {
 const dataToTr = (headers, selected, onClick) => {
     return (data) => {
         let checked = selected.includes(data.id);
-        return (<tr data-id={data.id}>
-            <td><input type={"checkbox"} checked={checked} onChange={() => onClick(data.id)}/></td>
-            {headers.map(({key}) => <td>{data[key]}</td>)}
-            <td>Change me to EDIT icon</td> {/*TODO Change me to EDIT icon*/}
-        </tr>);
+        return (
+            <tr data-id={data.id} key={data.id}>
+                <td><input type={"checkbox"} checked={checked} onChange={() => onClick(data.id)}/></td>
+                {headers.map(({key}, idx) => <td key={idx}>{data[key]}</td>)}
+                <td>Change me to EDIT icon</td>
+                {/*TODO Change me to EDIT icon*/}
+            </tr>
+        );
     }
 }
 
 const Actions = ({selected, children}) => {
     return (
         <>
-            <div style={{opacity: .3}}>{selected.join(",")}</div>{/*TODO debug line*/}
+            <div style={{opacity: .3}}>{selected.join(",")}</div>
+            {/*TODO debug line*/}
             <div>Selected: {selected.length}</div>
             <div>Actions</div>
             {children}
@@ -156,7 +161,7 @@ const index = () => {
     }
 
     return (
-        <Page selected={"couve"}>
+        <Page selected={"properties"}>
             <Layout stats={<PropertyStats/>} content={
                 <Table filters={["test", "wow"]}
                        headers={headers}

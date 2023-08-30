@@ -14,7 +14,7 @@ import Tools from "../assets/icons/icon_tools.svg"
 import Check from "../assets/icons/icon_check.svg"
 import AirCon from "../assets/icons/type_repair/icon_air_conditioner.svg"
 
-import "../scss/office.scss"
+import "../../scss/office.scss"
 
 
 const Office = () => {
@@ -58,7 +58,7 @@ const Office = () => {
                 </div>
             </div>
             <div className={"main-content"}>
-                <div className={"stats"}>
+                <div className={"stats office"}>
                     <div className={"card"}>
                         <div className={"header"}>
                             Properties

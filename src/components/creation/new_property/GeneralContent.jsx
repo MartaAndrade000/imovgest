@@ -1,6 +1,6 @@
-import Card from "../ui/cards/Card.jsx";
+import Card from "../../ui/cards/Card.jsx";
 
-import "../../scss/new_property_content.scss"
+import "../creation.scss"
 
 const GeneralContent = () => {
     return (<>

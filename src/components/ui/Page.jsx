@@ -5,6 +5,8 @@ import Topbar from "./Topbar.jsx";
 
 const Page = ({children, selected}) => {
 
+    console.log(selected)
+
     return (
         <div style={{display: "flex", width: "100%", height: "100%"}}>
             <div style={{width: 225, height: "100%", flexShrink: 0}}><Navbar selected={selected}/></div>
@@ -12,7 +14,7 @@ const Page = ({children, selected}) => {
                 <div style={{display: "flex"}}>
                     <Topbar/>
                 </div>
-                <div style={{display: "flex", flexGrow: 1, overflow: "hidden"}}>
+                <div style={{display: "flex", flexGrow: 1}}>
                     {children}
                 </div>
             </div>

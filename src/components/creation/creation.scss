@@ -15,6 +15,7 @@ $light-green: #d2e7d6;
   flex-direction: row;
   justify-content: space-between;
   gap: 20px;
+  width: 100%;
 }
 
 .tab-column {
@@ -180,7 +181,7 @@ $light-green: #d2e7d6;
 
               .switch-left {
                 background-color: #7d938a;
-                background-image: url("../assets/icons/icon_available.svg");
+                background-image: url("../../assets/icons/icon_available.svg");
                 background-position: 0% center;
               }
 
@@ -191,7 +192,7 @@ $light-green: #d2e7d6;
               .switch-right {
                 background-color: #0B4432;
                 background-position: 100% center;
-                background-image: url("../assets/icons/icon_unavailable.svg");
+                background-image: url("../../assets/icons/icon_unavailable.svg");
               }
             }
           }

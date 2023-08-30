@@ -1,12 +1,13 @@
-import Card from "../ui/cards/Card.jsx";
-import Remove from "../../assets/icons/icon_remove.svg";
-import Add from "../../assets/icons/icon_plus.svg";
+import Card from "../../ui/cards/Card.jsx";
+import Remove from "../../../assets/icons/icon_remove.svg";
+import Add from "../../../assets/icons/icon_plus.svg";
 
-import "../../scss/new_property_content.scss"
+import "../creation.scss"
 import {useState} from "react";
 
 const AdditionalContent = () => {
     const [fields, setFields] = useState([]);
+
     const addFields = () => {
         setFields([...fields, {description: '', code: ''}]);
     };

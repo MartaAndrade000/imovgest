@@ -1,108 +1,134 @@
+import {useEffect, useState} from "react";
 import Card from "../ui/cards/Card.jsx";
-import Remove from "../../assets/icons/icon_remove.svg";
-import Add from "../../assets/icons/icon_plus.svg";
 
-import "../../scss/new_property_content.scss"
-import {useState} from "react";
+import Remove from "../../assets/icons/icon_remove.svg"
+import Add from "../../assets/icons/icon_plus.svg"
+import Contact from "../../assets/icons/icon_phone.svg";
 
-const ContactsContent = ({ emergency }) => {
+import "./fields.scss"
 
-    const [fields, setFields] = useState([]);
-    const [isWindowOpen, setIsWindowOpen] = useState(false);
+const initFields = {name: '', surname: '', number: '', email: ''};
+
+const GuarantorsForm = () => {
+
+    const [fields, setFields] = useState([
+        initFields,
+    ]);
+
+    const [contacts, setContacts] = useState([]);
+
+    const [isWindowOpen, setIsWindowOpen] = useState([false, null]);
+
     const [selectedOption, setSelectedOption] = useState('Particular');
+
+    useEffect(() => {
+        if (isWindowOpen[0]) {
+            if (isWindowOpen[1] !== null) setFields(contacts[isWindowOpen[1]])
+        } else {
+            setFields([initFields])
+        }
+    }, [isWindowOpen]);
+
+    const handleInputChange = (field, value) => {
+        setFields((prevFields) => ({
+            ...prevFields,
+            [field]: value,
+        }));
+    };
+
+    const handleSave = () => {
+
+        const updatedFields = { ...fields, type: selectedOption };
+
+        if (isWindowOpen[1] !== null) {
+            setContacts((prevContacts) =>
+                prevContacts.map((contact, idx) => (idx === isWindowOpen[1] ? updatedFields : contact))
+            );
+        } else {
+            setContacts((prevContacts) => [...prevContacts, updatedFields]);
+        }
+        closeWindow();
+    };
+
 
     const handleOptionChange = (e) => {
         setSelectedOption(e.target.value);
     };
 
-    const openWindow = () => {
-        setIsWindowOpen(true);
+    const openWindow = (idx) => {
+        if (idx !== undefined) {
+            const contactToEdit = contacts[idx];
+            setSelectedOption(contactToEdit.type);
+        }
+        setIsWindowOpen([true, idx === undefined ? null : idx]);
     };
 
     const closeWindow = () => {
-        setIsWindowOpen(false);
+        setIsWindowOpen([false, null]);
     };
-    const removeFields = (index) => {
-        const updatedFields = fields.filter((_, i) => i !== index);
-        setFields(updatedFields);
+
+    const removeField = (index) => {
+        setContacts((prevContacts) => prevContacts.filter((_, idx) => idx !== index));
     };
+
     return (
         <>
             <div className={"tab-column"}>
-                <Card title={"Contactos"} className={"form-container"} content={
+                <Card title={"Fiadores"} className={"form-container"} content={
                     <div className={"form-wrapper1"}>
                         <div className="keys-container">
-                            {fields.map((field, index) => (
+                            {contacts.map((contact, index) => (
                                 <div className="form-group" key={index}>
-                                    <div className={"form-label"}> Chave ou código</div>
+                                    <div className={"form-label"}> Fiador</div>
                                     <div className={"form-input"}>
-                                        <div className={"pair"}>
-                                            <input className={"code-input"}
-                                                   type="text"
-                                                   placeholder="Description"
-                                                   value={field.description}
-                                                   onChange={(e) => {
-                                                       const updatedFields = [...fields];
-                                                       updatedFields[index].description = e.target.value;
-                                                       setFields(updatedFields);
-                                                   }}
-                                            />
-                                            <input
-                                                type="text"
-                                                placeholder="Code"
-                                                value={field.code}
-                                                onChange={(e) => {
-                                                    const updatedFields = [...fields];
-                                                    updatedFields[index].code = e.target.value;
-                                                    setFields(updatedFields);
-                                                }}
-                                            />
+                                        <div className={"contact-wrapper"}>
+                                            <div className={"phone"}>
+                                                <img src={Contact}/>
+                                            </div>
+                                            <div className="contact-item" key={index} >
 
-                                            <button className="remove-button"
-                                                    onClick={() => removeFields(index)}>
-                                                <img src={Remove}/>
-                                            </button>
+                                                <a className={"name"}
+                                                   onClick={() => {
+                                                       console.log(index);
+                                                       openWindow(index)
+                                                   }}>{contact.name} {contact.surname}
+                                                </a>
+                                                <div style={{fontSize: 12}}>{contact.type}</div>
+                                                <div>{contact.email}</div>
+                                                <div>{contact.number}</div>
+
+                                            </div>
                                         </div>
                                     </div>
-
-
+                                    <button className="remove-button"
+                                            onClick={() => removeField(index)}>
+                                        <img src={Remove}/>
+                                    </button>
                                 </div>
                             ))}
                         </div>
                         <div className={"form-group"}>
                             <div className={"form-label"}></div>
-                            <div className={"form-input"} onClick={openWindow}>
+                            <div className={"form-input"} onClick={() => openWindow()}>
                                 <a className={"btn"}>
                                     <img src={Add}/>
-                                    <span> Adicionar Contacto</span>
+                                    <span> Adicionar Fiador</span>
                                 </a>
-                                Pode adicionar multiplos contactos.
+                                Pode adicionar multiplos fiadores.
                             </div>
                         </div>
                     </div>
                 }></Card>
             </div>
 
-            {isWindowOpen && (
-                <div className="modal contacts">
-                    <Card title={"Novo Contacto"} className={"form-container"} content={
+            {isWindowOpen[0] && (
+                <div className="modal guarantor">
+                    <Card title={"Novo Fiador"} className={"form-container"} content={
                         <div className={"form-wrapper1"}>
                             <div className={"tab-row"}>
                                 <div className={"form-group"}>
                                     <div className={"form-label"}>
-                                        Contactos
-                                    </div>
-                                    <div className={"form-input"}>
-                                        <select>
-                                            <option>Adicionar um novo</option>
-                                            <option>2</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div className={"form-group"}>
-                                    <div className={"form-label"}>
-                                        Tipo de contacto
+                                        Tipo
                                     </div>
                                     <div className={"form-input"}>
                                         <select value={selectedOption} onChange={handleOptionChange}>
@@ -113,29 +139,12 @@ const ContactsContent = ({ emergency }) => {
                                 </div>
                             </div>
 
-                            {!emergency && selectedOption === 'Particular' && (
-                                <div>
-                                    <div className={"tab-row"}>
-                                        <div className={"form-group"}>
-                                            <div className={"form-label"}>Tipo</div>
-                                            <div className={"form-input"}>
-                                                <select>
-                                                    <option>Advogado</option>
-                                                    <option>2</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
-
                             {selectedOption === 'Particular' && (
                                 <>
-
                                     <div className={"tab-row"}>
                                         <div className={"form-group"}>
                                             <div className={"form-label"}>
-                                                Nome
+                                                NIF
                                             </div>
                                             <div className={"form-input"}>
                                                 <input type={"text"}></input>
@@ -143,7 +152,52 @@ const ContactsContent = ({ emergency }) => {
                                         </div>
                                         <div className={"form-group"}>
                                             <div className={"form-label"}>
+                                                Identificação
+                                            </div>
+                                            <div className={"form-input"}>
+                                                <input type={"text"}></input>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className={"tab-row"}>
+                                        <div className={"form-group"}>
+                                            <div className={"form-label"}>
+                                                Nome
+                                            </div>
+                                            <div className={"form-input"}>
+                                                <input
+                                                    type="text"
+                                                    value={fields.name}
+                                                    onChange={(e) => handleInputChange('name', e.target.value)}
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className={"form-group"}>
+                                            <div className={"form-label"}>
                                                 Apelido
+                                            </div>
+                                            <div className={"form-input"}>
+                                                <input
+                                                    type="text"
+                                                    value={fields.surname}
+                                                    onChange={(e) => handleInputChange('surname', e.target.value)}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className={"tab-row"}>
+                                        <div className={"form-group"}>
+                                            <div className={"form-label"}>
+                                                Data de nascimento
+                                            </div>
+                                            <div className={"form-input"}>
+                                                <input type={"date"}></input>
+                                            </div>
+                                        </div>
+                                        <div className={"form-group"}>
+                                            <div className={"form-label"}>
+                                                Nacionalidade
                                             </div>
                                             <div className={"form-input"}>
                                                 <input type={"text"}></input>
@@ -161,6 +215,18 @@ const ContactsContent = ({ emergency }) => {
                                                 Empresa
                                             </div>
                                             <div className={"form-input"}>
+                                                <input
+                                                    type="text"
+                                                    value={fields.name}
+                                                    onChange={(e) => handleInputChange('name', e.target.value)}
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className={"form-group"}>
+                                            <div className={"form-label"}>
+                                                Registo Comercial
+                                            </div>
+                                            <div className={"form-input"}>
                                                 <input type={"text"}></input>
                                             </div>
                                         </div>
@@ -174,7 +240,11 @@ const ContactsContent = ({ emergency }) => {
                                         Email
                                     </div>
                                     <div className={"form-input"}>
-                                        <input type={"text"}></input>
+                                        <input
+                                            type="text"
+                                            value={fields.email}
+                                            onChange={(e) => handleInputChange('email', e.target.value)}
+                                        />
                                     </div>
                                 </div>
                                 <div className={"form-group"}>
@@ -182,10 +252,15 @@ const ContactsContent = ({ emergency }) => {
                                         Telemóvel
                                     </div>
                                     <div className={"form-input"}>
-                                        <input type={"text"}></input>
+                                        <input
+                                            type="number"
+                                            value={fields.number}
+                                            onChange={(e) => handleInputChange('number', e.target.value)}
+                                        />
                                     </div>
                                 </div>
                             </div>
+
                             <div className={"tab-row"}>
                                 <div className={"form-group"}>
                                     <div className={"form-label"}>
@@ -223,7 +298,6 @@ const ContactsContent = ({ emergency }) => {
                                     </div>
                                 </div>
                             </div>
-
                             <div className={"tab-row"}>
                                 <div className={"form-group"}>
                                     <div className={"form-label"}>
@@ -241,7 +315,7 @@ const ContactsContent = ({ emergency }) => {
                                     <button className={"doc-button close"} onClick={closeWindow}>
                                         Cancelar
                                     </button>
-                                    <button className={"doc-button save"}>
+                                    <button className={"doc-button save"} onClick={handleSave}>
                                         Guardar
                                     </button>
                                 </div>
@@ -255,4 +329,4 @@ const ContactsContent = ({ emergency }) => {
     );
 }
 
-export default ContactsContent
+export default GuarantorsForm

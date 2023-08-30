@@ -1,0 +1,168 @@
+@import "scss/variables";
+
+.main {
+
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: space-between;
+  padding: 20px;
+  gap: 40px;
+  color: $black;
+
+  .card-container {
+    width: 50%;
+    max-width: 50%;
+  }
+
+  .display {
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    width: 100%;
+
+    .display-body {
+
+      .picture-container,
+      .street-container,
+      .map-container {
+
+        display: none;
+
+        &.active {
+          display: block;
+        }
+      }
+
+      .picture-container {
+        position: relative;
+
+        .picture-wrapper {
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          .picture {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+          }
+        }
+
+        .carousel-navigation {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+          padding: 0 20px; /* Adjust the spacing as needed */
+          box-sizing: border-box;
+        }
+
+        .prev-button,
+        .next-button {
+          background-color: transparent;
+          border: none;
+          font-size: 20px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  .display-header {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: table;
+    width: 100%;
+
+    &.char {
+      width: 60%;
+    }
+
+    li {
+      border: 1px solid #e5e5e5;
+      border-bottom: none;
+      padding: 5px 20px;
+      cursor: pointer;
+      background-color: $light;
+      display: table-cell;
+
+      a {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        height: 100%;
+        text-decoration: none;
+        color: inherit;
+
+        img {
+          width: 20px;
+        }
+      }
+
+      &:first-child, &:last-child {
+        border-left: none;
+        border-right: none;
+      }
+
+      &.active {
+        border-top: none;
+        background-color: white;
+      }
+
+      &.char {
+        background-color: white;
+        border: none;
+
+        &:first-child {
+          padding-left: 0;
+        }
+
+        img {
+          width: 35px;
+        }
+      }
+    }
+  }
+
+  .general-info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    padding: 0 10px;
+
+    .id {
+      font-size: 20px;
+      font-weight: 300;
+      margin: 0;
+    }
+
+    .characteristics {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: table;
+    }
+
+    .title {
+      font-size: 20px;
+      margin: 0;
+      padding: 10px 0;
+      font-weight: 600;
+      border-bottom: 1px solid #e5e5e5;
+    }
+  }
+
+  .contact-wrapper {
+    border: 1px solid #F2F2F2;
+    padding: 10px 15px;
+    border-radius: 10px;
+    background-color: #fcfcfc;
+  }
+}

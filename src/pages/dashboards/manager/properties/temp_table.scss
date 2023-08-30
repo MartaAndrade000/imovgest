@@ -1,11 +1,53 @@
-@import "../../../../scss/variables";
+@import "../../../../../scss/variables";
 
 .main-content {
 
   overflow: hidden;
 
   .stats {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    padding-top: 30px;
+    padding-bottom: 30px;
     background: $light-green;
+
+    .content {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 15px 10px 10px;
+
+      .info {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        font-size: 40px;
+        line-height: 0.8;
+        color: $dark;
+      }
+
+      .info span {
+        vertical-align: top;
+        font-size: 15px;
+        margin-left: 3px;
+        color: $black;
+      }
+
+      .content-icon {
+        border-radius: 50%;
+        border: 1px;
+        padding: 3px;
+        background: $light;
+
+        img {
+          width: 40px;
+          height: 35px;
+        }
+      }
+    }
   }
 
   .table-comp-wrapper {

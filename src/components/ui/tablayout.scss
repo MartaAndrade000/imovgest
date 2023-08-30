@@ -15,6 +15,7 @@ $light-green: #d2e7d6;
   padding-right: 20px;
   padding-top: 20px;
   overflow-y: auto;
+  font-family: "nunito", sans-serif;
 
   .tab-title {
     display: flex;
@@ -36,7 +37,7 @@ $light-green: #d2e7d6;
 
       .tab-item a {
         display: block;
-        padding: 10px 20px;
+        padding: 10px 19px;
         text-decoration: none;
         color: $black;
         font-weight: bold;

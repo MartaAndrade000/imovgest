@@ -1,0 +1,32 @@
+@import "scss/variables.scss";
+
+.contact-wrapper {
+
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+
+  .phone {
+    border: 2px solid $dark;
+    border-radius: 50%;
+    display: flex;
+    height: fit-content;
+    align-items: center;
+    padding: 5px;
+
+    img {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  .contact-item {
+    display: flex;
+    flex-direction: column;
+
+    .name {
+      cursor: pointer;
+      font-size: 17px;
+    }
+  }
+}

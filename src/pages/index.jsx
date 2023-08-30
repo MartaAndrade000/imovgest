@@ -1,4 +1,4 @@
-import "../scss/login.scss";
+import "../../scss/login.scss";
 import LoginForm from "../components/LoginForm.jsx";
 import RegisterForm from "../components/RegisterForm.jsx";
 import React, {useState} from "react";

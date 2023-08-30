@@ -1,9 +1,9 @@
 import {useState} from "react";
 
-import Card from "../ui/cards/Card.jsx";
+import Card from "../../ui/cards/Card.jsx";
 
-import "../../scss/new_property_content.scss"
-import New from "../../assets/icons/icon_new.svg";
+import "../creation.scss"
+import New from "../../../assets/icons/icon_new.svg";
 
 
 
@@ -198,7 +198,7 @@ const GeneralContent = () => {
                                     </div>
                                     <div className={"form-group"}>
                                         <div className={"form-label"}>
-                                            Local de nascimento
+                                            Nacionalidade
                                         </div>
                                         <div className={"form-input"}>
                                             <input type={"text"}></input>

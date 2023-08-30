@@ -8,7 +8,7 @@ import KeyIcon from "../../assets/icons/icon_key.svg"
 import DocIcon from "../../assets/icons/icon_docs.svg"
 import PhoneIcon from "../../assets/icons/icon_phone.svg"
 import Logo from "../../../public/logo_new.png"
-const Navbar = () => {
+const Navbar = ({ selected }) => {
 
     return (
         <nav className={"sidebar"}>
@@ -16,27 +16,27 @@ const Navbar = () => {
                 <a> <img src={Logo}/> </a>
             </div>
             <ul className={"menu"}>
-                <li>
+                <li className={selected === "office" ? "selected" : "" }>
                     <div className={"icon"}> <img src={HomeIcon}></img></div>
                     <span>Escritório</span>
                 </li>
-                <li>
+                <li className={selected === "properties" ? "selected" : "" }>
                     <div className={"icon"}> <img src={HouseIcon}></img></div>
                     <span>Propriedades</span>
                 </li>
-                <li>
+                <li className={selected === "residents" ? "selected" : "" }>
                     <div className={"icon"}> <img src={ResidentIcon}></img></div>
                     <span>Inquilinos</span>
                 </li>
-                <li>
+                <li className={selected === "contracts" ? "selected" : "" }>
                     <div className={"icon"}> <img src={KeyIcon}></img></div>
                     <span>Arrendamentos</span>
                 </li>
-                <li>
+                <li className={selected === "documents" ? "selected" : "" }>
                     <div className={"icon"}> <img src={DocIcon}></img></div>
                     <span>Documentos</span>
                 </li>
-                <li>
+                <li className={selected === "contacts" ? "selected" : "" }>
                     <div className={"icon"}> <img src={PhoneIcon}></img></div>
                     <span>Contactos</span>
                 </li>

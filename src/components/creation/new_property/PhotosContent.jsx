@@ -1,7 +1,7 @@
-import Card from "../ui/cards/Card.jsx";
+import Card from "../../ui/cards/Card.jsx";
 import {useState} from "react";
 
-import "../../scss/new_property_content.scss"
+import "../creation.scss"
 
 const PhotosContent = () => {
 
