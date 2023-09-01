@@ -32,6 +32,11 @@ $grey: #808080;
     width: 100%;
     gap: 30px;
 
+    .link {
+      text-decoration: none;
+      color: inherit;
+    }
+
     li {
 
       display: flex;

@@ -63,8 +63,14 @@
       display: flex;
       align-items: center;
       gap: 10px;
-
-      height: 140px;
+      justify-content: center;
+      //height: 140px;
+      width: fit-content;
+      align-self: center;
+      border: 1px solid $light;
+      border-radius:10px;
+      background-color: $light;
+      padding: 5px 15px;
     }
 
     .filter-wrapper {
@@ -95,7 +101,9 @@
 
     .table-wrapper {
       overflow-y: auto;
-
+      border: 1px solid #e6e6e6;
+      border-bottom: none;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 
       table {
         width: 100%;
@@ -105,6 +113,8 @@
 
         th, td {
           height: 40px;
+          padding-left: 15px;
+          padding-right: 15px;
         }
 
         th {
@@ -116,6 +126,7 @@
 
         td {
           border-bottom: 1px solid #e6e6e6;
+
         }
       }
     }

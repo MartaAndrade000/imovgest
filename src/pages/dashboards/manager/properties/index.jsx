@@ -1,6 +1,8 @@
 import {useAuthState} from "react-firebase-hooks/auth";
 import {auth} from "../../../../firebase.js";
 import Page from "../../../../components/ui/Page.jsx";
+
+import Edit from "../../../../assets/icons/icon_edit.svg";
 import Config from "../../../../assets/icons/icon_config.svg";
 import Property from "../../../../assets/icons/icon_property.svg";
 import Key from "../../../../assets/icons/icon_key.svg";
@@ -73,8 +75,7 @@ const dataToTr = (headers, selected, onClick) => {
             <tr data-id={data.id} key={data.id}>
                 <td><input type={"checkbox"} checked={checked} onChange={() => onClick(data.id)}/></td>
                 {headers.map(({key}, idx) => <td key={idx}>{data[key]}</td>)}
-                <td>Change me to EDIT icon</td>
-                {/*TODO Change me to EDIT icon*/}
+                <td> <img src={Edit} style={{width:20}}/></td>
             </tr>
         );
     }
@@ -83,9 +84,9 @@ const dataToTr = (headers, selected, onClick) => {
 const Actions = ({selected, children}) => {
     return (
         <>
-            <div style={{opacity: .3}}>{selected.join(",")}</div>
+            {/*<div style={{opacity: .3}}>{selected.join(",")}</div>*/}
             {/*TODO debug line*/}
-            <div>Selected: {selected.length}</div>
+            <div style={{opacity: .3}}>Selected: {selected.length}</div>
             <div>Actions</div>
             {children}
         </>
@@ -110,19 +111,7 @@ const Table = ({
             <div className={"filter-wrapper"}>
                 {filters.map(filterToPill)}
             </div>
-            <div className={"action-wrapper"}>
-                {selected.length > 0 && <Actions selected={selected}>
-                    <Icon img={"/src/assets/icons/icon_property.svg"}
-                          onClick={() => {
-                              console.log("wow")
-                          }}
-                          style={{padding: 4}}
-                    />
-                    <Icon img={"/src/assets/icons/icon_docs.svg"}
-                          style={{padding: 5}}
-                    />
-                </Actions>}
-            </div>
+
             <div className={"table-wrapper"}>
                 <table>
                     <thead>
@@ -136,6 +125,20 @@ const Table = ({
                     {data.map(mapping)}
                     </tbody>
                 </table>
+            </div>
+
+            <div className={"action-wrapper"}>
+                {selected.length > 0 && <Actions selected={selected}>
+                    <Icon img={"/src/assets/icons/icon_trash.svg"}
+                          onClick={() => {
+                              console.log("wow")
+                          }}
+                          style={{padding: 5}}
+                    />
+                    <Icon img={"/src/assets/icons/icon_archive.svg"}
+                          style={{padding: 5}}
+                    />
+                </Actions>}
             </div>
         </div>
     )

@@ -1,20 +1,59 @@
-import Card from "../ui/cards/Card.jsx";
-import TabLayout from "../ui/TabLayout.jsx";
+import Card from "../../ui/cards/Card.jsx";
+import TabLayout from "../../ui/TabLayout.jsx";
 
 import React, {useState} from "react";
 
 import "./property.scss"
 
 
-import Location from "../../assets/icons/icon_location.svg"
-import Camera from "../../assets/icons/icon_camera.svg"
-import Map from "../../assets/icons/icon_map.svg"
-import House from "../../assets/icons/icon_property.svg"
-import Division from "../../assets/icons/icon_divisions.svg"
-import Room from "../../assets/icons/icon_room.svg"
-import Bath from "../../assets/icons/icon_bath.svg"
-import Coins from "../../assets/icons/icon_coins.svg";
-import Contact from "../../assets/icons/icon_phone.svg";
+import Location from "../../../assets/icons/icon_location.svg"
+import Camera from "../../../assets/icons/icon_camera.svg"
+import Map from "../../../assets/icons/icon_map.svg"
+import House from "../../../assets/icons/icon_property.svg"
+import Division from "../../../assets/icons/icon_divisions.svg"
+import Room from "../../../assets/icons/icon_room.svg"
+import Bath from "../../../assets/icons/icon_bath.svg"
+import Coins from "../../../assets/icons/icon_coins.svg";
+import Contact from "../../../assets/icons/icon_phone.svg";
+
+
+import Resident from "../../../assets/icons/icon_resident.svg"
+import Contract from "../../../assets/icons/icon_doc.svg"
+import Duration from "../../../assets/icons/icon_clock.svg"
+
+const ContractContent = () => {
+
+    return (
+      <>
+          <div className={"contract-wrapper"} style={{display: "flex", flexDirection:"column", padding:10, border:'1px solid #e5e5e5', borderRadius:5}}>
+              <h1 style={{margin:0, fontSize:20, fontWeight:300, paddingBottom: 5}}>Identificador</h1>
+              <span style={{display: "flex", flexDirection: "row", padding: '3px 0', gap: 3}}>
+                  <img src={Resident} style={{width:20}}/>
+                  Nome Apelido
+              </span>
+              <span style={{display: "flex", flexDirection: "row", padding: '3px 0', gap: 3}}>
+                  <img src={Location} style={{width:20}}/>
+                  Rua Blah Blah
+              </span>
+              <span style={{display: "flex", flexDirection: "row", padding: '3px 0', gap: 3}}>
+                 <img src={Contract} style={{width:18}}/>
+                  Contrato de arrendamento habitacional
+              </span>
+              <span style={{display: "flex", flexDirection: "row", padding: '3px 0', gap: 3}}>
+                  <img src={Duration} style={{width:17}}/>
+                  Duração
+              </span>
+              <span style={{display: "flex", flexDirection: "row", padding: '3px 0', gap: 3}}>
+                  Renda: <text style={{color: '#7d938a'}}>Valor</text>
+              </span>
+              <span style={{display: "flex", flexDirection: "row", padding: '3px 0', gap: 3}}>
+                  Encargos: <text style={{color: '#7d938a'}}>Valor</text>
+              </span>
+
+          </div>
+      </>
+    );
+}
 
 const Property = () => {
 
@@ -27,11 +66,10 @@ const Property = () => {
     };
 
     const sections = [
-        {id: 'contacts', title: 'Proprietário', content: "Hi"},
-        {id: 'generalInfo', title: 'Arrendamentos', content: "Hi"},
-        {id: 'additionalInfo', title: 'Certificados e Seguros', content: "Hi"},
-        {id: 'certificates-and-insurance', title: 'Documentos', content: "Hi"},
-        {id: 'photos', title: 'Notas', content: "Hi"},
+        {id: 'owner', title: 'Proprietário', content: "Hi"},
+        {id: 'contracts', title: 'Arrendamentos', content: ContractContent()},
+        {id: 'certificates-and-insurance', title: 'Certificados e Seguros', content: "Hi"},
+        {id: 'documents', title: 'Documentos', content: "Hi"},
     ];
 
 
@@ -45,7 +83,6 @@ const Property = () => {
 
     return (
         <div className={"main"}>
-
             <div className={"tab-row"}>
                 <div className={"card-container"}>
                     <Card title={"Informação"} content={
@@ -99,13 +136,11 @@ const Property = () => {
                         </div>
                     }/>
                 </div>
-
                 <TabLayout sections={sections}/>
             </div>
-
             <div className={"tab-row"}>
                 <div className={"card-container"}>
-                    <Card title={"Propriedade"} content={
+                    <Card title={"Visão Geral"} content={
                         <div className={"general-info"}>
                             <h1 className={"title"}>
                                 Indetificador

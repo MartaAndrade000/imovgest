@@ -1,4 +1,4 @@
-@import "scss/variables";
+@import "../../../../scss/variables";
 
 .main {
 
@@ -10,9 +10,15 @@
   gap: 40px;
   color: $black;
 
+  .tab-wrapper {
+    width: 50%;
+    padding: 0;
+  }
+
   .card-container {
     width: 50%;
     max-width: 50%;
+    display: flex;
   }
 
   .display {
@@ -79,7 +85,7 @@
     width: 100%;
 
     &.char {
-      width: 60%;
+      width: 65%;
     }
 
     li {

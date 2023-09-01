@@ -1,7 +1,6 @@
 import Property from "../assets/icons/icon_property.svg"
 import Resident from "../assets/icons/icon_resident.svg"
 import Key from "../assets/icons/icon_key.svg"
-import Receipt from "../assets/icons/icon_doc.svg"
 import Config from "../assets/icons/icon_config.svg"
 import Coins from "../assets/icons/icon_coins.svg"
 import Calendar from "../assets/icons/icon_calendar.svg"
@@ -15,6 +14,7 @@ import Check from "../assets/icons/icon_check.svg"
 import AirCon from "../assets/icons/type_repair/icon_air_conditioner.svg"
 
 import "../../scss/office.scss"
+import {Link} from 'react-router-dom';
 
 
 const Office = () => {
@@ -41,21 +41,30 @@ const Office = () => {
         <div className={"main-container"}>
             <div className={"create"}>
                 <div className={"group"}>
-                    <button> <img src={Property}></img> </button>
+                    <button>
+                        <Link to="/dashboards/manager/properties/new">
+                            <img src={Property}></img>
+                        </Link>
+                    </button>
                     <div>New Property</div>
                 </div>
                 <div className={"group"}>
-                    <button> <img src={Resident} style={{paddingTop: '10px'}}></img> </button>
+                    <button>
+                        <Link to="/dashboards/manager/residents/new">
+                            <img src={Resident} style={{paddingTop: '10px'}}></img>
+                        </Link>
+                    </button>
                     <div>New Resident</div>
                 </div>
                 <div className={"group"}>
-                    <button> <img src={Key}></img> </button>
+                    <button>
+                        <Link to="/dashboards/manager/contracts/new">
+                            <img src={Key}></img>
+                        </Link>
+                    </button>
                     <div>New Contract</div>
                 </div>
-                <div className={"group"}>
-                    <button> <img src={Receipt}></img> </button>
-                    <div>New Receipt</div>
-                </div>
+
             </div>
             <div className={"main-content"}>
                 <div className={"stats office"}>

@@ -9,12 +9,14 @@ import DocumentsContent from "./DocumentsContent.jsx";
 import ContactsForm from "../ContactsForm.jsx";
 
 import * as PropTypes from "prop-types";
+import OwnerContent from "./OwnerContent.jsx";
 ContactsForm.propTypes = {emergency: PropTypes.bool};
 
 function NewProperty() {
     const sections = [
         { id: 'generalInfo', title: 'Informações Geral', content: <GeneralContent /> },
         { id: 'additionalInfo', title: 'Informações Adicionais', content:<AdditionalContent/> },
+        { id: 'owner', title: 'Proprietário', content: <OwnerContent/>},
         { id: 'certificates-and-insurance', title: 'Certificados e Seguros', content: <InsuranceContent/> },
         { id: 'photos', title: 'Fotografias', content: <PhotosContent/> },
         { id: 'contacts', title: 'Contactos', content: <ContactsForm emergency={false}/> },

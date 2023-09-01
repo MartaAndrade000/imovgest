@@ -7,6 +7,8 @@ const index = () => {
     const [user, loading, error] = useAuthState(auth);
     return (
         <Page selected={"residents"}>
+
+            {/*TODO Chnage this to table residents*/}
             <NewResident/>
         </Page>
 
