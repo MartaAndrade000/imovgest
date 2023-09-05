@@ -7,7 +7,7 @@ import Doc from "../../../assets/icons/icon_docs.svg";
 import "../creation.scss"
 import {useState} from "react";
 
-const DocumentsContent = () => {
+const DocumentsContent = ({onSubmit}) => {
 
     const [fields, setFields] = useState([]);
     const [isWindowOpen, setIsWindowOpen] = useState(false);
@@ -29,6 +29,11 @@ const DocumentsContent = () => {
     const handleButtonClick = (isNew) => {
         setIsNewActive(isNew);
     }
+
+    const handleSubmit = () => {
+        // Here, you can access formData and send it to Firebase or perform other actions.
+        onSubmit();
+    };
 
     return (
         <>
@@ -167,6 +172,14 @@ const DocumentsContent = () => {
                     }></Card>
                 </div>
             )}
+            <div className="button-container final">
+                <button className={"doc-button close"}>
+                    Cancelar
+                </button>
+                <button className={"doc-button save"} onClick={handleSubmit}>
+                    Guardar
+                </button>
+            </div>
         </>
     );
 }

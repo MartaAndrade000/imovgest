@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import TabLayout from '../../ui/TabLayout.jsx';
 
 import GeneralContent from "./GeneralContent.jsx";
@@ -13,14 +13,28 @@ import OwnerContent from "./OwnerContent.jsx";
 ContactsForm.propTypes = {emergency: PropTypes.bool};
 
 function NewProperty() {
+
+    let [state, setState] = useState({});
+
+    const handleSubmit  = (section) => (data) => {
+        console.log('Form data submitted:', data);
+        setState((oldState) => {
+            const newState = {...oldState};
+            newState[section] = data;
+            return newState;
+        })
+    };
+
+    console.log("State", state)
+
     const sections = [
-        { id: 'generalInfo', title: 'Informações Geral', content: <GeneralContent /> },
-        { id: 'additionalInfo', title: 'Informações Adicionais', content:<AdditionalContent/> },
-        { id: 'owner', title: 'Proprietário', content: <OwnerContent/>},
-        { id: 'certificates-and-insurance', title: 'Certificados e Seguros', content: <InsuranceContent/> },
-        { id: 'photos', title: 'Fotografias', content: <PhotosContent/> },
-        { id: 'contacts', title: 'Contactos', content: <ContactsForm emergency={false}/> },
-        { id: 'documents', title: 'Documentos', content: <DocumentsContent/> },
+        { id: 'generalInfo', title: 'Informações Geral', content: <GeneralContent onSubmit={handleSubmit("generalInfo")}/> },
+        { id: 'additionalInfo', title: 'Informações Adicionais', content:<AdditionalContent onSubmit={handleSubmit("additionalInfo") }/> },
+        { id: 'owner', title: 'Proprietário', content: <OwnerContent onSubmit={handleSubmit("owner")}/>},
+        { id: 'certificates-and-insurance', title: 'Certificados e Seguros', content: <InsuranceContent onSubmit={handleSubmit("insurance")}/> },
+        { id: 'photos', title: 'Fotografias', content: <PhotosContent onSubmit={handleSubmit("photos")}/> },
+        { id: 'contacts', title: 'Contactos', content: <ContactsForm emergency={false} onSubmit={handleSubmit("contacts")}/> },
+        { id: 'documents', title: 'Documentos', content: <DocumentsContent onSubmit={handleSubmit("documents")}/> },
     ];
 
     return (

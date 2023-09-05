@@ -10,6 +10,7 @@ import Duration from "../../../assets/icons/icon_clock.svg";
 import User from "../../../assets/icons/icon_profile.svg";
 
 import "../detail_property/property.scss"
+import Contact from "../../../assets/icons/icon_phone.svg";
 
 
 const ContractContent = () => {
@@ -52,12 +53,49 @@ const ContractContent = () => {
     );
 }
 
+const ContactContent = () => {
+
+    return(
+        <>
+            <div className={"contact-wrapper"}>
+                <div className={"phone"}>
+                    <img src={Contact}/>
+                </div>
+                <div className="contact-item" >
+                    <a className={"name"}>Nome Apelido</a>
+                    <div style={{fontSize: 12}}>Tipo de Contacto</div>
+                    <div>Email</div>
+                    <div>Numero</div>
+                </div>
+            </div>
+        </>
+    );
+}
+
+const GuarantorContent = () => {
+    return(
+        <>
+            <div className={"contact-wrapper"}>
+                <div className={"phone"}>
+                    <img src={User}/>
+                </div>
+                <div className="contact-item" >
+                    <a className={"name"}>Nome Apelido</a>
+                    <div style={{fontSize: 12}}>Tipo de Contacto</div>
+                    <div>Email</div>
+                    <div>Numero</div>
+                </div>
+            </div>
+        </>
+    );
+}
+
 const Resident = () => {
 
     const sections = [
         {id: 'generalInfo', title: 'Arrendamentos', content: ContractContent()},
-        {id: 'additionalInfo', title: 'Fiadores', content: 'Hi'},
-        {id: 'certificates-and-insurance', title: 'Contactos de Emergência', content: "Hi"},
+        {id: 'guarantor', title: 'Fiadores', content: GuarantorContent()},
+        {id: 'contacts', title: 'Contactos de Emergência', content: ContactContent()},
     ];
 
     return (

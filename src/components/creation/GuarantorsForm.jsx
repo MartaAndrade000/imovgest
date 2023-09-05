@@ -3,7 +3,7 @@ import Card from "../ui/cards/Card.jsx";
 
 import Remove from "../../assets/icons/icon_remove.svg"
 import Add from "../../assets/icons/icon_plus.svg"
-import Contact from "../../assets/icons/icon_phone.svg";
+import User from "../../assets/icons/icon_profile.svg";
 
 import "./fields.scss"
 
@@ -83,13 +83,12 @@ const GuarantorsForm = () => {
                                     <div className={"form-input"}>
                                         <div className={"contact-wrapper"}>
                                             <div className={"phone"}>
-                                                <img src={Contact}/>
+                                                <img src={User}/>
                                             </div>
                                             <div className="contact-item" key={index} >
 
                                                 <a className={"name"}
                                                    onClick={() => {
-                                                       console.log(index);
                                                        openWindow(index)
                                                    }}>{contact.name} {contact.surname}
                                                 </a>

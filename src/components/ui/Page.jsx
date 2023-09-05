@@ -5,8 +5,6 @@ import Topbar from "./Topbar.jsx";
 
 const Page = ({children, selected}) => {
 
-    console.log(selected)
-
     return (
         <div style={{display: "flex", width: "100%", height: "100%"}}>
             <div style={{width: 225, height: "100%", flexShrink: 0}}><Navbar selected={selected}/></div>

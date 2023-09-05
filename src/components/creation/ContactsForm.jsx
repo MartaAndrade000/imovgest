@@ -9,7 +9,7 @@ import "./fields.scss"
 
 const initFields = {name: '', surname: '', number: '', email: ''};
 
-const ContactsForm = ({emergency}) => {
+const ContactsForm = ({emergency, onSubmit}) => {
 
     const [fields, setFields] = useState([
         initFields,
@@ -69,6 +69,11 @@ const ContactsForm = ({emergency}) => {
 
     const removeField = (index) => {
         setContacts((prevContacts) => prevContacts.filter((_, idx) => idx !== index));
+    };
+
+    const handleSubmit = () => {
+        // Here, you can access formData and send it to Firebase or perform other actions.
+        onSubmit(contacts);
     };
 
 
@@ -307,6 +312,14 @@ const ContactsForm = ({emergency}) => {
                     }></Card>
                 </div>
             )}
+            <div className="button-container final">
+                <button className={"doc-button close"}>
+                    Cancelar
+                </button>
+                <button className={"doc-button save"} onClick={handleSubmit}>
+                    Guardar
+                </button>
+            </div>
         </>
     );
 }

@@ -8,8 +8,7 @@ const index = () => {
     const [user, loading, error] = useAuthState(auth);
     return (
         <Page selected={"office"}>
-            {/*<Ofiice/>*/}
-            <Property/>
+            <Office/>
         </Page>
 
     )
