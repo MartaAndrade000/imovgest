@@ -44,7 +44,7 @@ const logInWithEmailAndPassword = async (email, password) => {
     }
 };
 
-const registerWithEmailAndPassword = async (name, email, password) => {
+const registerWithEmailAndPassword = async (name, email, password, role) => {
     try {
         const res = await createUserWithEmailAndPassword(auth, email, password);
         await updateProfile(res.user, {displayName: name})
@@ -54,6 +54,7 @@ const registerWithEmailAndPassword = async (name, email, password) => {
             name,
             authProvider: "local",
             email,
+            role: role
         });
     } catch (err) {
         console.log(JSON.stringify(err))

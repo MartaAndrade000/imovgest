@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import "./tablayout.scss"
 
-function TabLayout({ sections }) {
+function TabLayout({ sections, children}) {
     const [activeTab, setActiveTab] = useState(sections[0].id);
 
     const handleChange = (e, id) => {
@@ -35,6 +35,7 @@ function TabLayout({ sections }) {
                         id={`#${section.id}`}
                     >
                         {section.content}
+                        {children}
                     </div>
                 ))}
             </div>

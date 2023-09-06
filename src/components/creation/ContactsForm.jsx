@@ -23,9 +23,14 @@ const ContactsForm = ({emergency, onSubmit}) => {
 
     useEffect(() => {
         if (isWindowOpen[0]) {
-            if (isWindowOpen[1] !== null) setFields(contacts[isWindowOpen[1]])
+            if (isWindowOpen[1] !== null) {
+                setFields(contacts[isWindowOpen[1]]);
+            } else {
+                // If not editing, setFields to initial fields (blank)
+                setFields(initFields);
+            }
         } else {
-            setFields([initFields])
+            setFields([initFields]);
         }
     }, [isWindowOpen]);
 
@@ -87,11 +92,11 @@ const ContactsForm = ({emergency, onSubmit}) => {
                                 <div className="form-group" key={index}>
                                     <div className={"form-label"}> Contacto</div>
                                     <div className={"form-input"}>
-                                        <div className={"contact-wrapper"}>
-                                            <div className={"phone"}>
+                                        <div className={"element-wrapper"}>
+                                            <div className={"icon"}>
                                                 <img src={Contact}/>
                                             </div>
-                                            <div className="contact-item" key={index} >
+                                            <div className="element-item" key={index} >
                                                 <a className={"name"}
                                                     onClick={() => {
                                                     openWindow(index)
@@ -138,7 +143,6 @@ const ContactsForm = ({emergency, onSubmit}) => {
                                     <div className={"form-input"}>
                                         <select>
                                             <option>Adicionar um novo</option>
-                                            <option>2</option>
                                         </select>
                                     </div>
                                 </div>

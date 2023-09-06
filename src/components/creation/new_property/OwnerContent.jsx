@@ -59,12 +59,14 @@ const OwnerContent = ( {onSubmit} ) => {
                 const reader = new FileReader();
 
                 reader.onload = (e) => {
-                    // When the file is loaded and within the size limit, store it in the data state
+                    // When the file is loaded and within the size limit, store it in the state
                     setData((prevData) => ({
                         ...prevData,
-                        file: e.target.result, // This is the data URL
+                        file: e.target.result,
                     }));
                 };
+
+                reader.readAsDataURL(file);
             }
         }
     };
@@ -179,7 +181,7 @@ const OwnerContent = ( {onSubmit} ) => {
                                             <input
                                                 type="file"
                                                 accept=".pdf, .doc, .jpg, .jpeg, .png"
-                                                onChange={handleFileInputChange}
+                                                onChange={(e) => handleFileInputChange(e)}
                                                 style={{ display: 'none' }}
                                             />
                                             <div className="search-button">

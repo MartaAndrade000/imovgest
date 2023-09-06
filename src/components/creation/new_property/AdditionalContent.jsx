@@ -40,7 +40,6 @@ const AdditionalContent = ({onSubmit}) => {
             petsAllowed: false,
             smokingAllowed: false,
         },
-
         accessCodes: [],
     });
 

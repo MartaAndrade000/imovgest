@@ -4,7 +4,7 @@ import "../creation.scss"
 
 import {useState} from "react";
 
-const GeneralContent = ({ onSubmit }) => {
+const GeneralContent = ({onSubmit}) => {
 
     const [data, setData] = useState({
         propertyType: '',
@@ -29,11 +29,10 @@ const GeneralContent = ({ onSubmit }) => {
     });
 
     const handleInputChange = (event) => {
-        const { name, value } = event.target;
-        setData((prevData) => ({
-            ...prevData,
-            [name]: value,
-        }));
+        const {name, value} = event.target;
+        setData((prevData) => {
+            return {...prevData, [name]: value};
+        });
     };
 
     const handleSubmit = () => {
@@ -52,7 +51,8 @@ const GeneralContent = ({ onSubmit }) => {
                                       <span className={"mandatory"}>*</span>
                                   </div>
                                   <div className={"form-input"}>
-                                      <select name="propertyType" value={data.propertyType} onChange={handleInputChange}>
+                                      <select name="propertyType" value={data.propertyType}
+                                              onChange={handleInputChange}>
                                           <option>Apartamento</option>
                                           <option>Moradia</option>
                                           <option>Estúdio</option>
@@ -69,7 +69,8 @@ const GeneralContent = ({ onSubmit }) => {
                                       <span className={"mandatory"}>*</span>
                                   </div>
                                   <div className={"form-input"}>
-                                      <input type={"text"} name="identifier" value={data.identifier} onChange={handleInputChange}/>
+                                      <input type={"text"} name="identifier" value={data.identifier}
+                                             onChange={handleInputChange}/>
                                       Digite um ID, referência ou um número exclusivo.
                                   </div>
                               </div>
@@ -101,7 +102,8 @@ const GeneralContent = ({ onSubmit }) => {
                                 Encargos
                             </div>
                             <div className={"form-input"}>
-                                <input type={"number"} name="charges" value={data.charges} onChange={handleInputChange}/>
+                                <input type={"number"} name="charges" value={data.charges}
+                                       onChange={handleInputChange}/>
                                 Valor indicativo.
                             </div>
                         </div>
@@ -116,7 +118,8 @@ const GeneralContent = ({ onSubmit }) => {
                                 <span className={"mandatory"}>*</span>
                             </div>
                             <div className={"form-input"}>
-                                <input className={"text"} name="address" value={data.address} onChange={handleInputChange}/>
+                                <input className={"text"} name="address" value={data.address}
+                                       onChange={handleInputChange}/>
                             </div>
                         </div>
                         <div className={"form-group"}>
@@ -124,7 +127,8 @@ const GeneralContent = ({ onSubmit }) => {
                                 Morada 2
                             </div>
                             <div className={"form-input"}>
-                                <input type={"text"} name="address2" value={data.address2} onChange={handleInputChange}/>
+                                <input type={"text"} name="address2" value={data.address2}
+                                       onChange={handleInputChange}/>
                             </div>
                         </div>
                         <div className={"form-group"}>
@@ -142,7 +146,8 @@ const GeneralContent = ({ onSubmit }) => {
                                 <span className={"mandatory"}>*</span>
                             </div>
                             <div className={"form-input"}>
-                                <input type={"text"} name="postalCode" value={data.postalCode} onChange={handleInputChange}/>
+                                <input type={"text"} name="postalCode" value={data.postalCode}
+                                       onChange={handleInputChange}/>
                             </div>
                         </div>
                         <div className={"form-group"}>
@@ -158,7 +163,8 @@ const GeneralContent = ({ onSubmit }) => {
                                 Distrito
                             </div>
                             <div className={"form-input"}>
-                                <input type={"text"} name="district" value={data.district} onChange={handleInputChange}/>
+                                <input type={"text"} name="district" value={data.district}
+                                       onChange={handleInputChange}/>
                             </div>
                         </div>
                         <div className={"form-group"}>
@@ -182,7 +188,8 @@ const GeneralContent = ({ onSubmit }) => {
                                 Superficie m²
                             </div>
                             <div className={"form-input"}>
-                                <input type={"number"} name="surface" value={data.surface} onChange={handleInputChange}/>
+                                <input type={"number"} name="surface" value={data.surface}
+                                       onChange={handleInputChange}/>
                             </div>
                         </div>
                         <div className={"form-group"}>
@@ -190,7 +197,8 @@ const GeneralContent = ({ onSubmit }) => {
                                 Número de divisões
                             </div>
                             <div className={"form-input"}>
-                                <input type={"number"} name="divisions" value={data.divisions} onChange={handleInputChange}/>
+                                <input type={"number"} name="divisions" value={data.divisions}
+                                       onChange={handleInputChange}/>
                             </div>
                         </div>
                         <div className={"form-group"}>
@@ -206,7 +214,8 @@ const GeneralContent = ({ onSubmit }) => {
                                 Número de casas de banho
                             </div>
                             <div className={"form-input"}>
-                                <input type={"number"} name="bathrooms" value={data.bathrooms} onChange={handleInputChange}/>
+                                <input type={"number"} name="bathrooms" value={data.bathrooms}
+                                       onChange={handleInputChange}/>
                             </div>
                         </div>
                         <div className={"form-group"}>

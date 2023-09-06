@@ -7,15 +7,20 @@ import User from "../../assets/icons/icon_profile.svg";
 
 import "./fields.scss"
 
-const initFields = {name: '', surname: '', number: '', email: ''};
+const initFields = {
+    name: '', surname: '', number: '', email: '', address:'', city: '', postalCode: '', country: '', notes: '',
+    NIF:'',
+    CC: '',
+    birthday: '',
+    nationality: '',
+    businessRegistration: '',
+};
 
-const GuarantorsForm = () => {
+const GuarantorsForm = ({onSubmit, residentID, residentValues}) => {
 
-    const [fields, setFields] = useState([
-        initFields,
-    ]);
+    const [fields, setFields] = useState([initFields]);
 
-    const [contacts, setContacts] = useState([]);
+    const [guarantors, setGuarantors] = useState([]);
 
     const [isWindowOpen, setIsWindowOpen] = useState([false, null]);
 
@@ -23,11 +28,30 @@ const GuarantorsForm = () => {
 
     useEffect(() => {
         if (isWindowOpen[0]) {
-            if (isWindowOpen[1] !== null) setFields(contacts[isWindowOpen[1]])
+            if (isWindowOpen[1] !== null) {
+                setFields(guarantors[isWindowOpen[1]]);
+            } else {
+                // If not editing, setFields to initial fields (blank)
+                setFields(initFields);
+            }
         } else {
-            setFields([initFields])
+            setFields([initFields]);
         }
     }, [isWindowOpen]);
+
+    useEffect(() => {
+        // Find residents with matching NIF and collect their guarantorsInfo
+        const matchingGuarantors = residentValues.reduce((accumulator, resident) => {
+            if (resident.generalInfo && resident.generalInfo.NIF === residentID) {
+                accumulator.push(...(resident.guarantorsInfo || [])); // Collect guarantorsInfo if it exists
+            }
+            return accumulator;
+        }, []);
+
+        setGuarantors(matchingGuarantors);
+    }, [residentID, residentValues]);
+
+
 
     const handleInputChange = (field, value) => {
         setFields((prevFields) => ({
@@ -41,14 +65,15 @@ const GuarantorsForm = () => {
         const updatedFields = { ...fields, type: selectedOption };
 
         if (isWindowOpen[1] !== null) {
-            setContacts((prevContacts) =>
-                prevContacts.map((contact, idx) => (idx === isWindowOpen[1] ? updatedFields : contact))
+            setGuarantors((prevGuarantors) =>
+                prevGuarantors.map((guarantor, idx) => (idx === isWindowOpen[1] ? updatedFields : guarantor))
             );
         } else {
-            setContacts((prevContacts) => [...prevContacts, updatedFields]);
+            setGuarantors((prevGuarantors) => [...prevGuarantors, updatedFields]);
         }
         closeWindow();
     };
+
 
 
     const handleOptionChange = (e) => {
@@ -57,7 +82,7 @@ const GuarantorsForm = () => {
 
     const openWindow = (idx) => {
         if (idx !== undefined) {
-            const contactToEdit = contacts[idx];
+            const contactToEdit = guarantors[idx];
             setSelectedOption(contactToEdit.type);
         }
         setIsWindowOpen([true, idx === undefined ? null : idx]);
@@ -68,7 +93,11 @@ const GuarantorsForm = () => {
     };
 
     const removeField = (index) => {
-        setContacts((prevContacts) => prevContacts.filter((_, idx) => idx !== index));
+        setGuarantors((prevContacts) => prevContacts.filter((_, idx) => idx !== index));
+    };
+
+    const handleSubmit = () => {
+        onSubmit(guarantors);
     };
 
     return (
@@ -77,24 +106,24 @@ const GuarantorsForm = () => {
                 <Card title={"Fiadores"} className={"form-container"} content={
                     <div className={"form-wrapper1"}>
                         <div className="keys-container">
-                            {contacts.map((contact, index) => (
+                            {guarantors.map((guarantor, index) => (
                                 <div className="form-group" key={index}>
                                     <div className={"form-label"}> Fiador</div>
                                     <div className={"form-input"}>
-                                        <div className={"contact-wrapper"}>
-                                            <div className={"phone"}>
+                                        <div className={"element-wrapper"}>
+                                            <div className={"icon"}>
                                                 <img src={User}/>
                                             </div>
-                                            <div className="contact-item" key={index} >
+                                            <div className="element-item" key={index} >
 
                                                 <a className={"name"}
                                                    onClick={() => {
                                                        openWindow(index)
-                                                   }}>{contact.name} {contact.surname}
+                                                   }}>{guarantor.name} {guarantor.surname}
                                                 </a>
-                                                <div style={{fontSize: 12}}>{contact.type}</div>
-                                                <div>{contact.email}</div>
-                                                <div>{contact.number}</div>
+                                                <div style={{fontSize: 12}}>{guarantor.type}</div>
+                                                <div>{guarantor.email}</div>
+                                                <div>{guarantor.number}</div>
 
                                             </div>
                                         </div>
@@ -146,7 +175,10 @@ const GuarantorsForm = () => {
                                                 NIF
                                             </div>
                                             <div className={"form-input"}>
-                                                <input type={"text"}></input>
+                                                <input type={"text"}
+                                                       value={fields.NIF}
+                                                       onChange={(e) => handleInputChange('NIF', e.target.value)}
+                                                />
                                             </div>
                                         </div>
                                         <div className={"form-group"}>
@@ -154,7 +186,10 @@ const GuarantorsForm = () => {
                                                 Identificação
                                             </div>
                                             <div className={"form-input"}>
-                                                <input type={"text"}></input>
+                                                <input type={"text"}
+                                                       value={fields.CC}
+                                                       onChange={(e) => handleInputChange('CC', e.target.value)}
+                                                />
                                             </div>
                                         </div>
                                     </div>
@@ -191,7 +226,10 @@ const GuarantorsForm = () => {
                                                 Data de nascimento
                                             </div>
                                             <div className={"form-input"}>
-                                                <input type={"date"}></input>
+                                                <input type={"date"}
+                                                       value={fields.birthday}
+                                                       onChange={(e) => handleInputChange('birthday', e.target.value)}
+                                                />
                                             </div>
                                         </div>
                                         <div className={"form-group"}>
@@ -199,7 +237,10 @@ const GuarantorsForm = () => {
                                                 Nacionalidade
                                             </div>
                                             <div className={"form-input"}>
-                                                <input type={"text"}></input>
+                                                <input type={"text"}
+                                                       value={fields.nationality}
+                                                       onChange={(e) => handleInputChange('nationality', e.target.value)}
+                                                />
                                             </div>
                                         </div>
                                     </div>
@@ -226,7 +267,10 @@ const GuarantorsForm = () => {
                                                 Registo Comercial
                                             </div>
                                             <div className={"form-input"}>
-                                                <input type={"text"}></input>
+                                                <input type={"text"}
+                                                       value={fields.businessRegistration}
+                                                       onChange={(e) => handleInputChange('businessRegistration', e.target.value)}
+                                                />
                                             </div>
                                         </div>
                                     </div>
@@ -266,7 +310,10 @@ const GuarantorsForm = () => {
                                         Morada
                                     </div>
                                     <div className={"form-input"}>
-                                        <input type={"text"}></input>
+                                        <input type={"text"}
+                                               value={fields.address}
+                                               onChange={(e) => handleInputChange('address', e.target.value)}
+                                        />
                                     </div>
                                 </div>
                                 <div className={"form-group"}>
@@ -274,7 +321,10 @@ const GuarantorsForm = () => {
                                         Cidade
                                     </div>
                                     <div className={"form-input"}>
-                                        <input type={"text"}></input>
+                                        <input type={"text"}
+                                               value={fields.city}
+                                               onChange={(e) => handleInputChange('city', e.target.value)}
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -285,7 +335,10 @@ const GuarantorsForm = () => {
                                         Código postal
                                     </div>
                                     <div className={"form-input"}>
-                                        <input type={"text"}></input>
+                                        <input type={"text"}
+                                               value={fields.postalCode}
+                                               onChange={(e) => handleInputChange('postalCode', e.target.value)}
+                                        />
                                     </div>
                                 </div>
                                 <div className={"form-group"}>
@@ -293,7 +346,10 @@ const GuarantorsForm = () => {
                                         País
                                     </div>
                                     <div className={"form-input"}>
-                                        <input type={"text"}></input>
+                                        <input type={"text"}
+                                               value={fields.country}
+                                               onChange={(e) => handleInputChange('country', e.target.value)}
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -303,7 +359,9 @@ const GuarantorsForm = () => {
                                         Notas pessoais
                                     </div>
                                     <div className={"form-input"}>
-                                        <textarea></textarea>
+                                        <textarea value={fields.notes}
+                                                  onChange={(e) => handleInputChange('notes', e.target.value)}
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -324,6 +382,14 @@ const GuarantorsForm = () => {
                     }></Card>
                 </div>
             )}
+            <div className="button-container final">
+                <button className={"doc-button close"}>
+                    Cancelar
+                </button>
+                <button className={"doc-button save"} onClick={handleSubmit}>
+                    Guardar
+                </button>
+            </div>
         </>
     );
 }

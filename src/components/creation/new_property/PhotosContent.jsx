@@ -46,8 +46,6 @@ const PhotosContent = ({onSubmit}) => {
             ...prevData,
             images: prevData.images.filter((_, i) => i !== index),
         }));
-
-        console.log(data)
     };
 
     const handleDragOver = (e) => {

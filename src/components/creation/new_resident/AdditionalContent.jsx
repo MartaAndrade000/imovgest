@@ -1,9 +1,32 @@
 import Card from "../../ui/cards/Card.jsx";
 
 import "../creation.scss"
+import {useState} from "react";
 
 
-const AdditionalContent = () => {
+const AdditionalContent = ( {onSubmit} ) => {
+
+    const [data, setData] = useState({
+        bank:'',
+        country: '',
+        IBAN: '',
+        SWIFT_BIC: '',
+        newAddress: '',
+        notes: '',
+    });
+
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setData((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+    };
+
+    const handleSubmit = () => {
+        // Here, you can access formData and send it to Firebase or perform other actions.
+        onSubmit(data);
+    };
 
     return(
         <>
@@ -16,7 +39,10 @@ const AdditionalContent = () => {
                                     Banco
                                 </div>
                                 <div className={"form-input"}>
-                                    <input type={"text"}/>
+                                    <input type={"text"}
+                                           name="bank"
+                                           value={data.bank}
+                                           onChange={handleInputChange}/>
                                 </div>
                             </div>
                             <div className={"form-group"}>
@@ -24,7 +50,10 @@ const AdditionalContent = () => {
                                     País
                                 </div>
                                 <div className={"form-input"}>
-                                    <input type={"text"}/>
+                                    <input type={"text"}
+                                           name="country"
+                                           value={data.country}
+                                           onChange={handleInputChange}/>
                                 </div>
                             </div>
                             <div className={"form-group"}>
@@ -32,7 +61,10 @@ const AdditionalContent = () => {
                                     IBAN
                                 </div>
                                 <div className={"form-input"}>
-                                    <input type={"text"}/>
+                                    <input type={"text"}
+                                           name="IBAN"
+                                           value={data.IBAN}
+                                           onChange={handleInputChange}/>
                                 </div>
                             </div>
                             <div className={"form-group"}>
@@ -40,7 +72,10 @@ const AdditionalContent = () => {
                                     SWIFT/BIC
                                 </div>
                                 <div className={"form-input"}>
-                                    <input type={"text"}/>
+                                    <input type={"text"}
+                                           name="SWIFT_BIC"
+                                           value={data.SWIFT_BIC}
+                                           onChange={handleInputChange}/>
                                 </div>
                             </div>
                         </div>
@@ -55,7 +90,11 @@ const AdditionalContent = () => {
                                     Nova Morada
                                 </div>
                                 <div className={"form-input"}>
-                                    <textarea className={"additional"}/>
+                                    <textarea className={"additional"}
+                                              name="newAddress"
+                                              value={data.newAddress}
+                                              onChange={handleInputChange}
+                                    />
                                     Nova morada do inquilino para futura correspondência.
                                 </div>
                             </div>
@@ -64,13 +103,26 @@ const AdditionalContent = () => {
                                     Notas Privadas
                                 </div>
                                 <div className={"form-input"}>
-                                    <textarea className={"additional"} placeholder={"Exemplo: Inquilino estável e organizado..."}/>
+                                    <textarea className={"additional"}
+                                              placeholder={"Exemplo: Inquilino estável e organizado..."}
+                                              name="notes"
+                                              value={data.notes}
+                                              onChange={handleInputChange}
+                                    />
                                 </div>
                             </div>
                         </div>
 
                     }></Card>
                 </div>
+            </div>
+            <div className="button-container final">
+                <button className={"doc-button close"}>
+                    Cancelar
+                </button>
+                <button className={"doc-button save"} onClick={handleSubmit}>
+                    Guardar
+                </button>
             </div>
         </>
     );

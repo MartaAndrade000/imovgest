@@ -1,24 +1,16 @@
-import Card from "../../ui/cards/Card.jsx";
-import Remove from "../../../assets/icons/icon_remove.svg";
-import Add from "../../../assets/icons/icon_plus.svg";
-import New from "../../../assets/icons/icon_new.svg";
-import Doc from "../../../assets/icons/icon_docs.svg";
+import Card from "../ui/cards/Card.jsx";
+import Remove from "../../assets/icons/icon_remove.svg";
+import Add from "../../assets/icons/icon_plus.svg";
+import New from "../../assets/icons/icon_new.svg";
+import Doc from "../../assets/icons/icon_docs.svg";
 
-import "../creation.scss"
+import "./creation.scss"
 import {useEffect, useState} from "react";
 
 const MAX_FILE_SIZE_BYTES = 10 * 1024 * 1024; // 10MB in bytes
 
-const initFields = {
-    type: '',
-    file: null,
-    existingDocument: '',
-    documentDescription: '',
-    documentStartDate: '',
-    documentEndDate: ''
-};
-
-const InsuranceContent = ({onSubmit}) => {
+const initFields = {type: '', file: null, fileName: '', existingDocument: '', documentDescription: ''};
+const DocumentsContent = ({onSubmit}) => {
 
     const [fields, setFields] = useState([
         initFields,
@@ -31,17 +23,23 @@ const InsuranceContent = ({onSubmit}) => {
     const [isNewActive, setIsNewActive] = useState([]);
 
     const [selectedOption, setSelectedOption] = useState('');
-    const handleOptionChange = (e) => {
-        setSelectedOption(e.target.value);
-    };
 
     useEffect(() => {
         if (isWindowOpen[0]) {
-            if (isWindowOpen[1] !== null) setFields(docs[isWindowOpen[1]])
+            if (isWindowOpen[1] !== null) {
+                setFields(docs[isWindowOpen[1]]);
+            } else {
+                // If not editing, setFields to initial fields (blank)
+                setFields(initFields);
+            }
         } else {
-            setFields([initFields])
+            setFields([initFields]);
         }
     }, [isWindowOpen]);
+
+    const handleOptionChange = (e) => {
+        setSelectedOption(e.target.value);
+    };
 
     const handleInputChange = (field, value) => {
         setFields((prevFields) => ({
@@ -51,7 +49,6 @@ const InsuranceContent = ({onSubmit}) => {
     };
 
     const handleSave = () => {
-
         const updatedFields = {...fields, type: selectedOption};
 
         if (isWindowOpen[1] !== null) {
@@ -62,6 +59,10 @@ const InsuranceContent = ({onSubmit}) => {
             setDocs((prevDocs) => [...prevDocs, updatedFields]);
         }
         closeWindow();
+    };
+
+    const removeField = (index) => {
+        setDocs((prevDocs) => prevDocs.filter((_, idx) => idx !== index));
     };
 
     const openWindow = (idx) => {
@@ -76,13 +77,9 @@ const InsuranceContent = ({onSubmit}) => {
         setIsWindowOpen([false, null]);
     };
 
-    const removeField = (index) => {
-        setDocs((prevDocs) => prevDocs.filter((_, idx) => idx !== index));
-    };
-
     const handleButtonClick = (isNew) => {
         setIsNewActive(isNew);
-    };
+    }
 
     const handleFileInputChange = (event) => {
         const file = event.target.files[0]; // Get the first selected file
@@ -99,6 +96,7 @@ const InsuranceContent = ({onSubmit}) => {
                     setFields((prevFields) => ({
                         ...prevFields,
                         file: e.target.result,
+                        fileName: file.name,
                     }));
                 };
 
@@ -115,7 +113,7 @@ const InsuranceContent = ({onSubmit}) => {
     return (
         <>
             <div className={"tab-column"}>
-                <Card title={"Certificados e Seguros"} className={"form-container"} content={
+                <Card title={"Documentos"} className={"form-container"} content={
                     <div className={"form-wrapper1"}>
                         <div className="keys-container">
                             {docs.map((doc, index) => (
@@ -126,7 +124,7 @@ const InsuranceContent = ({onSubmit}) => {
                                             <div className={"icon"}>
                                                 <img src={Doc}/>
                                             </div>
-                                            <div className="element-item" key={index}>
+                                            <div className="element-item" key={index} >
                                                 <a className={"name"}
                                                    onClick={() => {
                                                        openWindow(index)
@@ -159,7 +157,7 @@ const InsuranceContent = ({onSubmit}) => {
             </div>
 
             {isWindowOpen[0] && (
-                <div className="modal insurance">
+                <div className="modal general">
                     <Card title={"Novo Documento"} className={"form-container"} content={
                         <div className={"form-wrapper1"}>
                             <div className={"form-group"}>
@@ -169,21 +167,27 @@ const InsuranceContent = ({onSubmit}) => {
                                 <div className={"form-input"}>
                                     <select value={selectedOption} onChange={handleOptionChange}>
                                         <option value="" disabled>Escolher</option>
-                                        <option>Contrato de manutenção da caldeira</option>
-                                        <option>Contrato de água</option>
-                                        <option>Contrato de eletricidade</option>
-                                        <option>Contrato de gás</option>
-                                        <option>Contrato de internet</option>
-                                        <option>Contrato telefónico</option>
-                                        <option>Contrato de jardinagem</option>
-                                        <option>Contrato de piscina</option>
-                                        <option>Contrato de manutenção de ar condicionado</option>
-                                        <option>Diagnóstico de gás</option>
-                                        <option>Diagnóstico de desempenho energético</option>
-                                        <option>Avaliação de risco de incêndio</option>
-                                        <option>Verificação de alarme de incêndio</option>
-                                        <option>Certificado energético</option>
-                                        <option>Seguro multirisco</option>
+                                        <option>Registo predial</option>
+                                        <option>Certificado de seguro</option>
+                                        <option>Contrato</option>
+                                        <option>Contrato de arrendamento</option>
+                                        <option>Contrato de emprego</option>
+                                        <option>Contrato de manutenção</option>
+                                        <option>Dignóstico</option>
+                                        <option>Extrato de conta</option>
+                                        <option>Fatura</option>
+                                        <option>Conta de água</option>
+                                        <option>Conta de gás e eletricidade</option>
+                                        <option>Conta de telefone</option>
+                                        <option>Garantia</option>
+                                        <option>Impostos locais</option>
+                                        <option>Relatório fiscal</option>
+                                        <option>Inventário</option>
+                                        <option>Regras de condomínio</option>
+                                        <option>Lista de móveis</option>
+                                        <option>Folha de pagamento</option>
+                                        <option>Recibo de locação</option>
+                                        <option>Título de propriedade</option>
                                         <option>Outro</option>
                                     </select>
                                 </div>
@@ -226,6 +230,7 @@ const InsuranceContent = ({onSubmit}) => {
                                                 Formatos possíveis: Word, Excel, PDF, JPG, PNG.<br/>
                                                 Tamanho máximo: 15 MB
                                             </label>
+
                                         </div>
 
                                     ) : (
@@ -243,36 +248,12 @@ const InsuranceContent = ({onSubmit}) => {
                                     Descrição
                                 </div>
                                 <div className={"form-input"}>
-                                    <textarea
-                                        placeholder={"Exemplo: Importância, outras informações..."}
-                                        value={fields.documentDescription}
-                                        onChange={(e) => handleInputChange('documentDescription', e.target.value)}
+                                    <textarea placeholder={"Exemplo: Importância, outras informações..."}
+                                              value={fields.documentDescription}
+                                              onChange={(e) => handleInputChange('documentDescription', e.target.value)}
                                     />
                                 </div>
                             </div>
-                            <div className={"form-group"}>
-                                <div className={"form-label"}>
-                                    Data de início
-                                </div>
-                                <div className={"form-input"}>
-                                    <input type={"date"}
-                                           value={fields.documentStartDate}
-                                           onChange={(e) => handleInputChange('documentStartDate', e.target.value)}
-                                    />
-                                </div>
-                            </div>
-                            <div className={"form-group"}>
-                                <div className={"form-label"}>
-                                    Data de vencimento
-                                </div>
-                                <div className={"form-input"}>
-                                    <input type={"date"}
-                                           value={fields.documentEndDate}
-                                           onChange={(e) => handleInputChange('documentEndDate', e.target.value)}
-                                    />
-                                </div>
-                            </div>
-
                             <div className={"close"}>
 
                                 <div className="button-container final">
@@ -301,4 +282,4 @@ const InsuranceContent = ({onSubmit}) => {
     );
 }
 
-export default InsuranceContent
+export default DocumentsContent

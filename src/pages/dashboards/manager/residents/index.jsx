@@ -1,4 +1,4 @@
-import {auth} from "../../../../firebase.js";
+import {auth, db} from "../../../../firebase.js";
 import Page from "../../../../components/ui/Page.jsx";
 
 
@@ -8,15 +8,18 @@ import Key from "../../../../assets/icons/icon_key.svg";
 
 import "../../../../components/ui/table.scss"
 import Table from "../../../../components/ui/Table.jsx";
+import {useCollectionData} from "react-firebase-hooks/firestore";
+import {collection} from "firebase/firestore";
+import {useEffect, useState} from "react";
 
-const Layout = ({stats: Stats, content: Content, ...rest}) => {
+const Layout = ({stats: Stats, children, ...rest}) => {
 
     return (
         <>
             <div className={"main-container"}>
                 <div className={"main-content"} style={{flexGrow: 1}}>
                     {Stats}
-                    {Content}
+                    {children}
                 </div>
             </div>
         </>
@@ -73,18 +76,36 @@ const index = () => {
         {id: 3, name: "Quim Barreiros", type: "Empresa", property: "ODV_3", phone: 923456789, email: "QuimzinhoBarro@gmail.com"}
     ]
 
+    const [values, loading, error] = useCollectionData(collection(db, "residents"));
+    const [parsedValues, setParsedValues] = useState(null)
+    useEffect(() => {
+        if (!parsedValues && values) {
+            setParsedValues(values.map((res) => {
+                return {
+                    name: res.generalInfo.name,
+                    type: res.generalInfo.type,
+                    property: "",
+                    phone: res.generalInfo.mobileNumber,
+                    email: res.generalInfo.email
+                }
+            }));
+        }
+    }, [values])
+
     for (let i = 4; i < 10; i++) {
         data.push({id: i, name: "Esteves da Costa", type: "Particular", property: "ST_1", phone: 934537865, email: "AiJesus@gmail.com"})
     }
 
     return (
         <Page selected={"residents"}>
-            <Layout stats={<PropertyStats/>} content={
-                <Table filters={["test", "wow"]}
-                       headers={headers}
-                       data={data}
-                />
-            }/>
+            <Layout stats={<PropertyStats/>}>
+                {error && <div>Error...</div>}
+                {loading && <div>Loading...</div>}
+                {!loading && parsedValues && <Table filters={["test", "wow"]}
+                                                    headers={headers}
+                                                    data={parsedValues}/>}
+
+            </Layout>
         </Page>
 
     )

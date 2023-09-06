@@ -43,7 +43,7 @@ const Table = ({
                    data = []
                }) => {
 
-    let [selected, setSelected] = useState([1, 2, 3]);
+    let [selected, setSelected] = useState([]);
     const onClick = (id) => {
         let idx = selected.indexOf(id);
         if (idx > -1) setSelected(selected.filter((_, aidx) => idx !== aidx));

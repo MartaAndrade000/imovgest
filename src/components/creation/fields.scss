@@ -1,12 +1,12 @@
 @import "scss/variables.scss";
 
-.contact-wrapper {
+.element-wrapper {
 
   display: flex;
   flex-direction: row;
   gap: 10px;
 
-  .phone {
+  .icon {
     border: 2px solid $dark;
     border-radius: 50%;
     display: flex;
@@ -20,7 +20,7 @@
     }
   }
 
-  .contact-item {
+  .element-item {
     display: flex;
     flex-direction: column;
 

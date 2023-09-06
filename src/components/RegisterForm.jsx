@@ -1,27 +1,78 @@
 import React, {useEffect, useState} from 'react';
-import {auth, registerWithEmailAndPassword} from "../firebase.js";
+import {auth, db, registerWithEmailAndPassword} from "../firebase.js";
 import {useAuthState} from "react-firebase-hooks/auth";
-import {errorMessages} from "../firebase/errors.js";
 import {useNavigate} from "react-router-dom";
+import {collection, getDocs, query, where} from "firebase/firestore";
+import {errorMessages} from "../firebase/errors.js";
 
 const RegisterForm = () => {
+
+    const params = new URLSearchParams(window.location.search);
+    const registrationToken = params.get('token');
 
     let [username, setUsername] = useState('');
     let [email, setEmail] = useState('');
     let [password, setPassword] = useState('');
+    const [role, setRole] = useState('');
     let [regError, setRegError] = useState('');
 
     const [user, loading, error] = useAuthState(auth);
+
     let navigate = useNavigate();
+
     useEffect(() => {
         if (loading) return;
-        if (user) navigate("/dashboards/manager");
+        if (user) {
+            if(role === "client"){
+                navigate("/dashboards/client");
+                console.log("CLIENT")
+            }
+            else if (role === "manager") navigate("/dashboards/manager");
+        }
     }, [user, loading]);
-    const handleSubmit = (event) => {
+
+
+
+    const isValidToken = async (token) => {
+        try {
+            // Create a reference to the "tokens" collection
+            const tokensCollection = collection(db, 'tokens');
+
+            // Create a query to search for the token
+            const q = query(tokensCollection, where('value', '==', token));
+
+            // Execute the query
+            const querySnapshot = await getDocs(q);
+
+            // Check if a document with the token exists
+            if (querySnapshot.size === 1) {
+                // Token is valid, retrieve the role from the document
+                const docData = querySnapshot.docs[0].data();
+                setRole(docData.role)
+                return docData.role; // Return the role
+            } else {
+                return ''; // Token is not found or not unique
+            }
+        } catch (error) {
+            console.error('Error checking token validity:', error);
+            return ''; // Handle errors here
+        }
+    };
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        registerWithEmailAndPassword(name, email, password)
-            .catch(error => setRegError(errorMessages(error.message)))
-    }
+
+        const roleFromToken = await isValidToken(registrationToken);
+
+        if (roleFromToken !== "") {
+
+            registerWithEmailAndPassword(name, email, password, roleFromToken)
+              .catch(error => setRegError(errorMessages(error.message)))
+
+        } else {
+            setRegError('Invalid registration token.');
+        }
+    };
 
     return (
         <form className="register-form" onSubmit={handleSubmit}>
